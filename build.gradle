@@ -1,0 +1,52 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+
+		main {
+			java {
+				srcDir 'src/main/java'
+				srcDir 'src/main/resources'
+			}
+		}
+
+    test {
+        java {
+            srcDir 'src/test/unit'
+            srcDir 'src/test/cucumber'
+            srcDir 'src/test/integration'
+            srcDir 'src/test/resources'
+        }       
+    }
+}
+
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testRuntime
+    }
+}
+
+task cucumber() {
+    dependsOn assemble, compileTestJava
+    doLast {
+        javaexec {
+            main = "cucumber.api.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--glue', 'gradle.cucumber', 'src/test/resources']
+        }
+    }
+}
+
+dependencies {
+    testCompile 'org.mockito:mockito-all:1.9.0'
+
+    testCompile 'info.cukes:cucumber-java:1.2.4'
+    testCompile 'info.cukes:cucumber-junit:1.2.4'
+
+    testCompile 'junit:junit:4.11'
+}
+
