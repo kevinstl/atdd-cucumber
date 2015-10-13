@@ -2,6 +2,7 @@ apply plugin: 'java'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 sourceSets {
@@ -41,12 +42,24 @@ task cucumber() {
     }
 }
 
+
 dependencies {
     testCompile 'org.mockito:mockito-all:1.9.0'
 
     testCompile 'info.cukes:cucumber-java:1.2.4'
     testCompile 'info.cukes:cucumber-junit:1.2.4'
+    testCompile 'info.cukes:cucumber-spring:1.2.4'
 
     testCompile 'junit:junit:4.11'
+
+    compile 'com.ctl.security.data:security-data-common:1.0.5-SNAPSHOT'
+    compile 'com.ctl.security.ips:IPS-client:1.0.24-SNAPSHOT'
+
+    compile 'org.springframework:spring-context:4.2.1.RELEASE'
+    compile 'org.springframework:spring-context-support:4.2.1.RELEASE'
+    compile 'org.springframework:spring-core:4.2.1.RELEASE'
+    compile 'org.springframework:spring-web:4.2.1.RELEASE'
+    compile 'org.springframework:spring-beans:4.2.1.RELEASE'
+    compile 'org.springframework:spring-test:4.2.1.RELEASE'
 }
 
